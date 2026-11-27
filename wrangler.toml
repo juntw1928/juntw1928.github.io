@@ -1,0 +1,6 @@
+name = "xiao-foxx-api"
+main = "worker/xiao-foxx-worker.js"
+compatibility_date = "2026-11-27"
+
+[vars]
+ALLOWED_ORIGIN = "https://juntw1928.github.io"
