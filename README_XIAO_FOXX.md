@@ -13,8 +13,8 @@ From the repository root, run:
 ```bash
 npm install -g wrangler
 npx wrangler login
-npx wrangler secret put OPENAI_API_KEY
 npx wrangler deploy
+npx wrangler secret put OPENAI_API_KEY
 ```
 
 When prompted for `OPENAI_API_KEY`, paste the API key. The key is stored as a Worker secret, not in this repository.
