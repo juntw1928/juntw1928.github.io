@@ -14,6 +14,19 @@ header{padding:24px 0;border-bottom:1px solid var(--line)}nav{display:flex;align
 .section-head{display:flex;justify-content:space-between;align-items:end;margin:54px 0 24px}.section-head h2{font:700 2rem "Segoe UI",Arial,sans-serif;margin:0}.section-head span{color:var(--muted);font-size:.9rem}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}.card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:28px;min-height:285px;display:flex;flex-direction:column;box-shadow:var(--shadow);transition:.25s}.card:hover{transform:translateY(-5px);border-color:#c9b9a8}.tag{font-size:.75rem;text-transform:uppercase;letter-spacing:.12em;color:var(--accent);font-weight:750}.card h3{font:700 1.55rem/1.2 "Segoe UI",Arial,sans-serif;margin:18px 0 12px}.card p{color:var(--muted);margin:0}.meta{margin-top:auto;padding-top:24px;color:var(--muted);font-size:.84rem}
 .about{margin:90px 0;background:#292520;color:#fffaf2;border-radius:24px;padding:clamp(32px,6vw,68px);display:grid;grid-template-columns:.8fr 1.2fr;gap:60px}.about h2{font:700 clamp(2.2rem,5vw,4.3rem)/1 "Segoe UI",Arial,sans-serif;margin:0}.about p{color:#d7cec2;margin:0}.about a{color:#fff;border-bottom:1px solid #fff;text-decoration:none}footer{padding:34px 0 48px;border-top:1px solid var(--line);display:flex;justify-content:space-between;color:var(--muted);font-size:.88rem}
 @media(max-width:760px){.hero{grid-template-columns:1fr;padding-top:65px;gap:25px}.grid{grid-template-columns:1fr}.about{grid-template-columns:1fr;gap:28px}.navlinks a:not(:last-child){display:none}footer{flex-direction:column;gap:8px}}
+
+/* Xiao🦊Foxx assistant */
+.xiao-launch{position:fixed;right:22px;bottom:20px;z-index:10001;border:0;border-radius:999px;padding:12px 17px;background:#292520;color:#fffaf2;font:700 14px system-ui;box-shadow:0 10px 30px #29252035;cursor:pointer}
+.xiao-launch:hover{transform:translateY(-2px);background:var(--accent)}
+.xiao-panel{position:fixed;right:22px;bottom:82px;z-index:10000;width:min(370px,calc(100vw - 28px));height:min(570px,calc(100dvh - 115px));display:none;flex-direction:column;background:var(--paper);border:1px solid var(--line);border-radius:20px;box-shadow:0 22px 65px #29252035;overflow:hidden;font:14px/1.5 system-ui,sans-serif}
+.xiao-panel.open{display:flex}.xiao-head{display:flex;align-items:center;gap:11px;padding:15px 16px;background:#292520;color:#fffaf2}
+.xiao-avatar{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:#b64d32;font-size:21px}.xiao-head strong{display:block;font-size:15px}.xiao-head small{color:#d7cec2}.xiao-close{margin-left:auto;border:0;background:transparent;color:white;font-size:22px;cursor:pointer}
+.xiao-messages{flex:1;overflow:auto;padding:16px;display:flex;flex-direction:column;gap:12px;background:#fbf8f2}
+.xiao-msg{max-width:88%;padding:10px 12px;border-radius:14px;white-space:pre-wrap;overflow-wrap:anywhere}.xiao-msg.bot{align-self:flex-start;background:#fff;border:1px solid var(--line);color:var(--ink);border-bottom-left-radius:4px}.xiao-msg.user{align-self:flex-end;background:#292520;color:white;border-bottom-right-radius:4px}
+.xiao-quick{display:flex;gap:7px;overflow:auto;padding:0 12px 10px;background:#fbf8f2}.xiao-quick button{white-space:nowrap;border:1px solid var(--line);background:white;border-radius:999px;padding:6px 10px;font-size:12px;cursor:pointer}
+.xiao-compose{display:flex;gap:7px;padding:12px;border-top:1px solid var(--line);background:white}.xiao-compose input{min-width:0;flex:1;border:1px solid var(--line);border-radius:12px;padding:11px;font:inherit;outline-color:var(--accent)}.xiao-compose button{border:0;border-radius:11px;padding:0 12px;background:#b64d32;color:white;font-weight:700;cursor:pointer}.xiao-compose button:disabled{opacity:.5;cursor:wait}
+.xiao-tools{display:flex;justify-content:space-between;align-items:center;padding:0 13px 10px;background:white;color:var(--muted);font-size:11px}.xiao-tools button{border:0;background:transparent;color:var(--muted);cursor:pointer}.xiao-tools button[aria-pressed="true"]{color:var(--accent);font-weight:700}
+@media(max-width:480px){.xiao-launch{right:12px;bottom:12px}.xiao-panel{right:8px;bottom:70px;width:calc(100vw - 16px);height:min(600px,calc(100dvh - 85px))}}
 </style>
 </head>
 <body>
@@ -41,6 +54,165 @@ header{padding:24px 0;border-bottom:1px solid var(--line)}nav{display:flex;align
   } catch (error) {
     console.error("Không thể tải Clippy.js:", error);
   }
+</script>
+
+<!-- Xiao🦊Foxx: chat, microphone and Vietnamese voice -->
+<button class="xiao-launch" id="xiao-launch" type="button" aria-expanded="false">🦊 Trò chuyện với Xiao</button>
+<section class="xiao-panel" id="xiao-panel" role="dialog" aria-label="Trợ lý Xiao Foxx" aria-modal="false">
+  <div class="xiao-head"><div class="xiao-avatar">🦊</div><div><strong>Xiao🦊Foxx</strong><small id="xiao-status">Trợ lý blog · Tiếng Việt</small></div><button class="xiao-close" id="xiao-close" aria-label="Đóng">×</button></div>
+  <div class="xiao-messages" id="xiao-messages" aria-live="polite"><div class="xiao-msg bot">Xin chào! Mình là Xiao🦊Foxx. Bạn muốn tìm bài viết, tìm hiểu về blog hay cần mình hỗ trợ điều gì? 😊</div></div>
+  <div class="xiao-quick"><button type="button" data-question="Giới thiệu về blog này">Giới thiệu blog</button><button type="button" data-question="Tôi có thể tìm bài viết ở đâu?">Tìm bài viết</button><button type="button" data-question="Làm sao để liên hệ với tác giả?">Liên hệ</button></div>
+  <form class="xiao-compose" id="xiao-form"><input id="xiao-input" maxlength="1200" autocomplete="off" placeholder="Nhập tin nhắn..." aria-label="Tin nhắn"><button id="xiao-send" type="submit">Gửi</button></form>
+  <div class="xiao-tools"><button id="xiao-mic" type="button" title="Nói để nhập tin nhắn">🎙️ Nói</button><button id="xiao-voice" type="button" aria-pressed="true" title="Bật hoặc tắt đọc câu trả lời">🔊 Đọc: bật</button><span id="xiao-mode">Chế độ hỗ trợ cơ bản</span></div>
+</section>
+<script type="module">
+  import { initAgent } from "https://cdn.jsdelivr.net/npm/clippyjs@0.1.0/dist/index.mjs";
+  import { Clippy } from "https://cdn.jsdelivr.net/npm/clippyjs@0.1.0/dist/agents/index.mjs";
+
+  // Để kết nối AI thật, đặt URL Worker tại window.XIAO_FOXX_API trong một script trước đoạn này.
+  const API_URL = window.XIAO_FOXX_API || "";
+  const panel = document.getElementById("xiao-panel");
+  const launch = document.getElementById("xiao-launch");
+  const messages = document.getElementById("xiao-messages");
+  const input = document.getElementById("xiao-input");
+  const send = document.getElementById("xiao-send");
+  const status = document.getElementById("xiao-status");
+  const mode = document.getElementById("xiao-mode");
+  const voiceButton = document.getElementById("xiao-voice");
+  let agent = null;
+  let voiceOn = true;
+  const history = [];
+
+  try {
+    agent = await initAgent(Clippy);
+    agent.show();
+    agent.speak("Xin chào! Mình là Xiao Foxx. Bấm nút Trò chuyện với Xiao để bắt đầu nhé!");
+  } catch (error) {
+    console.warn("Clippy không tải được; giao diện chat vẫn hoạt động.", error);
+  }
+
+  launch.addEventListener("click", () => {
+    const opened = panel.classList.toggle("open");
+    launch.setAttribute("aria-expanded", String(opened));
+    if (opened) input.focus();
+  });
+  document.getElementById("xiao-close").addEventListener("click", () => {
+    panel.classList.remove("open");
+    launch.setAttribute("aria-expanded", "false");
+  });
+
+  function addMessage(text, who) {
+    const item = document.createElement("div");
+    item.className = "xiao-msg " + who;
+    item.textContent = text;
+    messages.appendChild(item);
+    messages.scrollTop = messages.scrollHeight;
+    return item;
+  }
+  function say(text) {
+    if (agent) {
+      try { agent.speak(text); } catch (_) {}
+    }
+    if (!voiceOn || !("speechSynthesis" in window)) return;
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = "vi-VN";
+    utterance.rate = 0.96;
+    const voices = window.speechSynthesis.getVoices();
+    const vietnamese = voices.find(v => /^vi(-|_)/i.test(v.lang) || /vietnam/i.test(v.name));
+    if (vietnamese) utterance.voice = vietnamese;
+    window.speechSynthesis.speak(utterance);
+  }
+  voiceButton.addEventListener("click", () => {
+    voiceOn = !voiceOn;
+    voiceButton.textContent = voiceOn ? "🔊 Đọc: bật" : "🔇 Đọc: tắt";
+    voiceButton.setAttribute("aria-pressed", String(voiceOn));
+    if (!voiceOn && "speechSynthesis" in window) window.speechSynthesis.cancel();
+  });
+
+  function localReply(question) {
+    const q = question.toLocaleLowerCase("vi");
+    if (/xin chào|hello|hi\b|chào bạn/.test(q)) return "Xin chào bạn! 🦊 Mình là Xiao, trợ lý của blog Foxxx. Rất vui được trò chuyện cùng bạn!";
+    if (/giới thiệu|blog này|fox|tác giả|ai là/.test(q)) return "Đây là góc blog cá nhân của Foxxx, nơi chia sẻ trải nghiệm, kiến thức đang khám phá và những cảm hứng thường ngày. Bạn có thể xem mục Giới thiệu và Bài viết ngay trên trang.";
+    if (/bài viết|bài đăng|đọc|nội dung/.test(q)) return "Bạn kéo đến mục “Bài viết mới” trên trang để xem các chủ đề Khởi đầu, Ghi chép và Cảm hứng. Một số bài đang được chuẩn bị để đăng.";
+    if (/liên hệ|email|gửi lời/.test(q)) return "Bạn có thể dùng liên kết “Liên hệ” ở thanh điều hướng hoặc “gửi lời chào” trong phần Giới thiệu. Địa chỉ email hiện trên trang là hello@example.com, bạn nên thay bằng email thật của chủ blog.";
+    if (/cảm ơn|thanks/.test(q)) return "Rất vui vì giúp được bạn! Nếu còn điều gì muốn tìm hiểu, cứ nhắn mình nhé. 😊";
+    return "Mình đã nhận được câu hỏi rồi! Hiện tại mình đang ở chế độ hỗ trợ cơ bản nên chưa thể trả lời mọi chủ đề. Khi kết nối máy chủ AI, mình sẽ có thể trò chuyện linh hoạt hơn. Bạn có thể hỏi mình về blog, bài viết hoặc cách liên hệ nhé.";
+  }
+
+  async function getReply(question) {
+    if (!API_URL) return localReply(question);
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: question, history: history.slice(-10) })
+    });
+    if (!response.ok) throw new Error("Máy chủ trợ lý trả về lỗi " + response.status);
+    const data = await response.json();
+    if (!data.reply) throw new Error("Máy chủ chưa trả về nội dung.");
+    return data.reply;
+  }
+
+  async function submitQuestion(question) {
+    const text = question.trim();
+    if (!text || send.disabled) return;
+    addMessage(text, "user");
+    input.value = "";
+    send.disabled = true;
+    status.textContent = "Xiao đang suy nghĩ...";
+    const pending = addMessage("Mình đang tìm câu trả lời…", "bot");
+    try {
+      const reply = await getReply(text);
+      pending.textContent = reply;
+      history.push({ role: "user", content: text }, { role: "assistant", content: reply });
+      if (history.length > 20) history.splice(0, history.length - 20);
+      say(reply);
+    } catch (error) {
+      pending.textContent = "Mình chưa kết nối được máy chủ AI. " + error.message + " Bạn thử lại sau nhé.";
+      console.error(error);
+    } finally {
+      send.disabled = false;
+      status.textContent = "Trợ lý blog · Tiếng Việt";
+      messages.scrollTop = messages.scrollHeight;
+      input.focus();
+    }
+  }
+
+  document.getElementById("xiao-form").addEventListener("submit", event => {
+    event.preventDefault();
+    submitQuestion(input.value);
+  });
+  document.querySelectorAll(".xiao-quick button").forEach(button => {
+    button.addEventListener("click", () => submitQuestion(button.dataset.question));
+  });
+
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const mic = document.getElementById("xiao-mic");
+  if (SpeechRecognition) {
+    const recognition = new SpeechRecognition();
+    recognition.lang = "vi-VN";
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+    mic.addEventListener("click", () => {
+      try { recognition.start(); mic.textContent = "🎙️ Đang nghe…"; status.textContent = "Bạn đang nói, Xiao đang lắng nghe"; }
+      catch (_) { status.textContent = "Micro đang được sử dụng hoặc chưa sẵn sàng"; }
+    });
+    recognition.onresult = event => {
+      input.value = event.results[0][0].transcript;
+      submitQuestion(input.value);
+    };
+    recognition.onerror = () => { status.textContent = "Không nhận được giọng nói. Bạn thử lại nhé."; };
+    recognition.onend = () => { mic.textContent = "🎙️ Nói"; };
+  } else {
+    mic.disabled = true;
+    mic.textContent = "🎙️ Mic không hỗ trợ";
+    mic.title = "Trình duyệt này chưa hỗ trợ nhận diện giọng nói.";
+  }
+  if (API_URL) mode.textContent = "AI đã cấu hình";
+  window.addEventListener("beforeunload", () => {
+    if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+    if (agent) agent.dispose();
+  });
 </script>
 </body>
 </html>
