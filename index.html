@@ -42,19 +42,6 @@ header{padding:24px 0;border-bottom:1px solid var(--line)}nav{display:flex;align
 </main>
 <footer class="wrap"><span>© 2026 Foxxx. Viết bằng sự tò mò.</span><span>Được lưu trữ miễn phí trên GitHub Pages.</span></footer>
 
-<!-- Clippy.js: trợ lý hoạt hình ở góc màn hình -->
-<script type="module">
-  import { initAgent } from "https://cdn.jsdelivr.net/npm/clippyjs@0.1.0/dist/index.mjs";
-  import { Clippy } from "https://cdn.jsdelivr.net/npm/clippyjs@0.1.0/dist/agents/index.mjs";
-
-  try {
-    const agent = await initAgent(Clippy);
-    agent.show();
-    agent.speak("Xin chào! Mình là Clippy. Chào mừng bạn đến với góc nhỏ của Foxxx!");
-  } catch (error) {
-    console.error("Không thể tải Clippy.js:", error);
-  }
-</script>
 
 <!-- Xiao🦊Foxx: chat, microphone and Vietnamese voice -->
 <button class="xiao-launch" id="xiao-launch" type="button" aria-expanded="false">🦊 Trò chuyện với Xiao</button>
