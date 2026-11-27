@@ -28,5 +28,19 @@ header{padding:24px 0;border-bottom:1px solid var(--line)}nav{display:flex;align
 <section class="about" id="gioi-thieu"><h2>Người đứng sau<br>trang viết.</h2><div><p>Xin chào, tôi là Foxxx. Tôi tạo blog này để chia sẻ những gì mình biết, đang khám phá và thật sự quan tâm. Nội dung ở đây sẽ lớn lên cùng tôi — chân thành, giản dị và hữu ích.</p><p style="margin-top:22px">Bạn có thể quay lại bất cứ lúc nào hoặc <a href="mailto:hello@example.com">gửi lời chào</a>.</p></div></section>
 </main>
 <footer class="wrap"><span>© 2026 Foxxx. Viết bằng sự tò mò.</span><span>Được lưu trữ miễn phí trên GitHub Pages.</span></footer>
+
+<!-- Clippy.js: trợ lý hoạt hình ở góc màn hình -->
+<script type="module">
+  import { initAgent } from "https://cdn.jsdelivr.net/npm/clippyjs/dist/index.mjs";
+  import { Clippy } from "https://cdn.jsdelivr.net/npm/clippyjs/dist/agents/index.mjs";
+
+  try {
+    const clippy = await initAgent(Clippy);
+    clippy.show();
+    clippy.speak("Xin chào! Mình là Clippy. Cần mình giúp gì cho bạn với trang blog này không?");
+  } catch (error) {
+    console.error("Không thể tải Clippy.js:", error);
+  }
+</script>
 </body>
 </html>
