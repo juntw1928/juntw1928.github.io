@@ -31,13 +31,13 @@ header{padding:24px 0;border-bottom:1px solid var(--line)}nav{display:flex;align
 
 <!-- Clippy.js: trợ lý hoạt hình ở góc màn hình -->
 <script type="module">
-  import { initAgent } from "https://cdn.jsdelivr.net/npm/clippyjs/dist/index.mjs";
-  import { Clippy } from "https://cdn.jsdelivr.net/npm/clippyjs/dist/agents/index.mjs";
+  import { initAgent } from "https://cdn.jsdelivr.net/npm/clippyjs@0.1.0/dist/index.mjs";
+  import { Clippy } from "https://cdn.jsdelivr.net/npm/clippyjs@0.1.0/dist/agents/index.mjs";
 
   try {
-    const clippy = await initAgent(Clippy);
-    clippy.show();
-    clippy.speak("Xin chào! Mình là Clippy. Cần mình giúp gì cho bạn với trang blog này không?");
+    const agent = await initAgent(Clippy);
+    agent.show();
+    agent.speak("Xin chào! Mình là Clippy. Chào mừng bạn đến với góc nhỏ của Foxxx!");
   } catch (error) {
     console.error("Không thể tải Clippy.js:", error);
   }
